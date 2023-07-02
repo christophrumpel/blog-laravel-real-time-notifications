@@ -3,8 +3,6 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
 
         <title>Test Laravel Real-Time Notifications</title>
 
@@ -24,9 +22,10 @@
         <script>
             window.onload=function(){
                 // Listen for broadcast event
-                Echo.channel('events')
+                // Echo.channel('events') // for public channel
+                Echo.private('events')
                     .listen('RealTimeMessage', (e) => {
-                        console.log('RealTimeMessage: ' + e.message)
+                        console.log('Private RealTimeMessage: ' + e.message)
                         window.dispatchEvent(new CustomEvent('flash', { detail: e.message }));
                     });
 
